@@ -9,7 +9,10 @@ MandelbrotZoom is a simple (toy) Julia program that renders and explores the Man
 
 ## Screenshots
 
+Here's the zoombox in action:
 ![Initial View of Mandelbrot Set](screenshots/zoom-box.png)
+
+Here's a couple more steps zoomed in:
 ![Zoomed Mandelbrot Set](screenshots/zoom-in.png)
 
 ## Installation
