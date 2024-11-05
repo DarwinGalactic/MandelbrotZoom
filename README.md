@@ -7,6 +7,11 @@ MandelbrotZoom is a simple (toy) Julia program that renders and explores the Man
 - **High-Resolution Mandelbrot Rendering**: Produces a visually rich Mandelbrot set with adjustable detail and resolution for experimenting with the viewing experience.
 - **Interactive Zoom Functionality**: Uses GLMakie to enable interactive zooming to dive deeper into areas of the Mandelbrot set.
 
+## Screenshots
+
+![Initial View of Mandelbrot Set](screenshots/zoom-box.png)
+![Zoomed Mandelbrot Set](screenshots/zoom-in.png)
+
 ## Installation
 
 1. **Clone the Repository**:
