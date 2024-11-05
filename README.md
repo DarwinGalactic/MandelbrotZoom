@@ -2,6 +2,8 @@
 
 MandelbrotZoom is a simple (toy) Julia program that renders and explores the Mandelbrot set, featuring a zoom functionality that allows users to explore different regions of the fractal in detail. This interactive application uses the Makie.jl visualization package.
 
+The interesting source code is here: [MandelbrotZoom/src/MandelbrotZoom.jl](MandelbrotZoom/src/MandelbrotZoom.jl)
+
 ## Features
 
 - **High-Resolution Mandelbrot Rendering**: Produces a visually rich Mandelbrot set with adjustable detail and resolution for experimenting with the viewing experience.
