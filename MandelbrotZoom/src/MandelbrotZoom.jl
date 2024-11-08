@@ -20,18 +20,6 @@ const nice_aspect_ratio = 3.0 / 2.2
 # This is a high enough resolution that it looks good on my screen...
 const good_resolution = 2000
 
-# Create a Figure window and draw an Axis in it
-fig = Figure()
-const ax = Axis(
-    fig[1, 1], title = "Mandelbrot Set",
-    aspect = nice_aspect_ratio,
-    xlabel = "Real", ylabel = "Imaginary",
-
-    # Rotate x and y tick labels by 45 degrees
-    xticklabelrotation = π / 4,
-    yticklabelrotation = π / 4
-)
-
 # Given a zoom rectangle `rect`, create linear ranges for x and y that
 # maintain `aspect_ratio`
 function rectangle_covering(
@@ -77,7 +65,7 @@ function mandelbrot(x, y, detail)
 end
 
 # plot subset of the Mandelbrot set within `rect` and adjust axis
-function draw_mandelbrot(rect; resolution = good_resolution)        
+function draw_mandelbrot(ax, rect; resolution = good_resolution)        
     # Maintain fixed aspect ratio and `resolution`
     x_range, y_range = rectangle_covering(rect, resolution=resolution)
 
@@ -96,7 +84,6 @@ function draw_mandelbrot(rect; resolution = good_resolution)
     )), min_detail, max_detail))
 
     # adjust the axis to the new rectangle
-    global ax
     xlims!(ax, x_range[1], x_range[end])
     ylims!(ax, y_range[1], y_range[end])
 
@@ -126,27 +113,37 @@ end
 # set a start rectangle
 const start_rect = HyperRectangle(-2, -1.1, 3, 2.2)
 
-# add a button for going back to the initial picture
-goback = Button(fig[2,1]; label = "Reset Zoom", tellwidth = false)
-on(goback.clicks) do clicks
-    draw_mandelbrot(start_rect)
-end
-
-# now enable zooming, thank you:
-# https://docs.makie.org/dev/explanations/observables#Observables
-Makie.deactivate_interaction!(ax, :rectanglezoom)
-srect = select_rectangle(ax.scene)
-on(srect) do rect
-    # recraw within the new `rect`
-    draw_mandelbrot(rect)
-end
-
-
 function julia_main()::Cint
     try
+        println("Create a Figure window and draw an Axis in it")
+        fig = Figure(window_title="Mandelbrot Zoom")
+        ax = Axis(
+            fig[1, 1], title = "Mandelbrot Set",
+            aspect = nice_aspect_ratio,
+            xlabel = "Real", ylabel = "Imaginary",
+            
+            # Rotate x and y tick labels by 45 degrees
+            xticklabelrotation = π / 4,
+            yticklabelrotation = π / 4
+        )
+
+        # add a button for going back to the initial picture
+        goback = Button(fig[2,1]; label = "Reset Zoom", tellwidth = false)
+        on(goback.clicks) do clicks
+            draw_mandelbrot(ax, start_rect)
+        end
+
+        # now enable zooming, thank you:
+        # https://docs.makie.org/dev/explanations/observables#Observables
+        Makie.deactivate_interaction!(ax, :rectanglezoom)
+        srect = select_rectangle(ax.scene)
+        on(srect) do rect
+            # recraw within the new `rect`
+            draw_mandelbrot(ax, rect)
+        end
 
         println("Draw the famous picture.")
-        draw_mandelbrot(start_rect)
+        draw_mandelbrot(ax, start_rect)
 
         println("Wait for the display to be done...") 
         wait(display(fig))  # PackageCompiler --> segfault 11 on MacOS :-(
