@@ -1,10 +1,10 @@
-using PackAageCompiler
+using PackageCompiler
 
 app_name = "MandelbrotZoom"
 
 # Define source and output paths
-source_path = "MandelbrotZoom"       # Your main source directory
-output_path = "output/MandelbrotZoom.app/Contents"  # Output directory for the .app bundle
+source_path = app_name       # Your main source directory
+output_path = "output/$(app_name).app/Contents"  # Output directory for the .app bundle
 
 # Create the app bundle
 
@@ -56,8 +56,11 @@ open(plist_path, "w") do f
 end
 println("Info.plist created successfully.")
 
+macos_path = joinpath(output_path, "MacOS")
+mkpath(macos_path)
+mv(joinpath(output_path, "bin/$(app_name)"),
+   joinpath(macos_path, app_name))
+println("completed moving the binary into position for MacOS app bundle")
+
 # TODO
-# figure out why `wait(display(fig))` segfaults
-# move the executable from bin to MacOS
-# maybe make a hardlink from bin to MacOS dir to keep path working
 # do code signing
