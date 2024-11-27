@@ -1,14 +1,14 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: Bug report for Mandelbrot Zoom
+about: Report a problem, so we can improve Mandelbrot Zoom
 title: ''
 labels: ''
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Describe the bug or problem**
+A clear and concise description of the problem you are seeing
 
 **To Reproduce**
 Steps to reproduce the behavior:

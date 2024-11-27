@@ -1,6 +1,6 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
+name: Feature request for Mandelbrot Zoom
+about: Suggest an idea for enhancing Mandelbrot Zoom
 title: ''
 labels: ''
 assignees: ''
